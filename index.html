@@ -1,0 +1,880 @@
+<!DOCTYPE html><html lang="es" class="scroll-smooth"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronos — Plataforma Inteligente de Programación y Horarios Educativos</title>
+  
+  <!-- Tailwind CDN & Configuración del Sistema de Diseño -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'accent': '#2563EB',
+        'ai-accent': '#06B6D4',
+        'ai-glow': '#38BDF8',
+        'success': '#059669',
+        'warning': '#D97706',
+        'error': '#DC2626',
+        'light-primary': '#1D4ED8',
+        'light-on-primary': '#FFFFFF',
+        'light-primary-container': '#DBEAFE',
+        'light-on-primary-container': '#1E3A8A',
+        'light-secondary': '#0E7490',
+        'light-on-secondary': '#FFFFFF',
+        'light-surface': '#F8FAFC',
+        'light-on-surface': '#0F172A',
+        'light-surface-container': '#FFFFFF',
+        'light-surface-container-high': '#F1F5F9',
+        'light-outline': '#CBD5E1',
+        'light-outline-variant': '#E2E8F0',
+        'dark-primary': '#60A5FA',
+        'dark-on-primary': '#0F172A',
+        'dark-primary-container': '#1E3A8A',
+        'dark-on-primary-container': '#DBEAFE',
+        'dark-secondary': '#22D3EE',
+        'dark-on-secondary': '#083344',
+        'dark-surface': '#0B0F19',
+        'dark-on-surface': '#F1F5F9',
+        'dark-surface-container': '#111827',
+        'dark-surface-container-high': '#1F2937',
+        'dark-outline': '#374151',
+        'dark-outline-variant': '#1E293B',
+      },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'gutter-2xl': '48px',
+        'section': '64px',
+        'section-lg': '96px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'headline': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'title': ['"Plus Jakarta Sans"', 'sans-serif'],
+        'body': ['"Inter"', 'sans-serif'],
+        'label': ['"Inter"', 'sans-serif'],
+      },
+      fontSize: {
+        'display-lg': ['56px', { lineHeight: '64px', letterSpacing: '-1.2px', fontWeight: '800' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.6px', fontWeight: '800' }],
+        'display-md': ['40px', { lineHeight: '48px', letterSpacing: '-0.8px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.4px', fontWeight: '700' }],
+        'headline-lg': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.3px', fontWeight: '700' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.3px', fontWeight: '600' }],
+        'title-lg': ['20px', { lineHeight: '28px', letterSpacing: '-0.2px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['15px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['13px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '500' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'theme-toggle': '200ms',
+        'ai-pulse': '1200ms',
+        'surface-enter': '250ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'theme-toggle': '0ms',
+        'ai-pulse': '0ms',
+        'surface-enter': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'theme-toggle': 'ease-in-out',
+        'ai-pulse': 'ease-in-out',
+        'surface-enter': 'cubic-bezier(0, 0, 0.2, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  
+  <!-- Iconografía oficial de Google Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilos complementarios para microinteracciones fluidas y consola de IA */
+    .glass-nav {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    @keyframes pulseAIGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.02); }
+    }
+    .animate-ai-glow {
+      animation: pulseAIGlow 4s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-light-surface dark:bg-dark-surface text-light-on-surface dark:text-dark-on-surface font-body antialiased min-h-[1024px] selection:bg-ai-accent selection:text-white transition-colors duration-theme-toggle" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+  <!-- ========================================== -->
+  <!-- BARRA DE NAVEGACIÓN PRINCIPAL              -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 w-full border-b border-light-outline-variant dark:border-dark-outline-variant bg-light-surface/90 dark:bg-dark-surface/90 glass-nav transition-colors duration-theme-toggle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Marca y Logotipo Cronos -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-light-primary dark:focus-visible:ring-dark-primary rounded-lg p-1">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-light-primary to-ai-accent dark:from-dark-primary dark:to-ai-accent flex items-center justify-center text-white shadow-md shadow-light-primary/20 dark:shadow-dark-primary/20 transition-transform group-hover:scale-105">
+          <span class="material-symbols-outlined text-[24px]">calendar_clock</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-headline-md tracking-tight font-extrabold text-light-on-surface dark:text-dark-on-surface flex items-center gap-1.5">
+            Cronos
+            <span class="text-[10px] font-label font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-ai-accent/15 text-ai-accent dark:bg-ai-accent/20 border border-ai-accent/30">IA Engine</span>
+          </span>
+          <span class="text-[11px] font-body text-light-outline dark:text-dark-outline -mt-1 hidden sm:inline">Orquestación Académica B2B</span>
+        </div>
+      </a>
+
+      <!-- Enlaces de Navegación -->
+      <nav class="hidden md:flex items-center gap-8 font-label text-label-lg font-medium text-light-on-surface/80 dark:text-dark-on-surface/80">
+        <a href="#propuesta-valor" class="hover:text-light-primary dark:hover:text-dark-primary transition-colors">Propuesta de Valor</a>
+        <a href="#motor-ia" class="flex items-center gap-1.5 hover:text-ai-accent transition-colors">
+          <span class="material-symbols-outlined text-[18px] text-ai-accent">neurology</span>
+          Motor IA
+        </a>
+        <a href="#como-funciona" class="hover:text-light-primary dark:hover:text-dark-primary transition-colors">Cómo Funciona</a>
+        <a href="#beneficios" class="hover:text-light-primary dark:hover:text-dark-primary transition-colors">Roles &amp; Beneficios</a>
+      </nav>
+
+      <!-- Controles: Selector de Tema Claro/Oscuro y CTA -->
+      <div class="flex items-center gap-3">
+        <!-- Botón de Conmutación de Tema Claro / Oscuro -->
+        <button id="theme-toggle-btn" type="button" aria-label="Cambiar tema claro y oscuro" class="relative p-2.5 rounded-lg border border-light-outline-variant dark:border-dark-outline-variant bg-light-surface-container dark:bg-dark-surface-container text-light-on-surface dark:text-dark-on-surface hover:border-light-primary dark:hover:border-dark-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-light-primary dark:focus-visible:ring-dark-primary transition-all duration-state-change group">
+          <!-- Icono Sol para Tema Claro -->
+          <span id="theme-icon-light" class="material-symbols-outlined text-[20px] hidden group-hover:rotate-45 transition-transform">light_mode</span>
+          <!-- Icono Luna para Tema Oscuro -->
+          <span id="theme-icon-dark" class="material-symbols-outlined text-[20px] inline group-hover:-rotate-12 transition-transform">dark_mode</span>
+        </button>
+
+        <!-- CTA Principal Header -->
+        <a href="#contacto-demo" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg font-label text-label-lg font-semibold bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary shadow-sm hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-light-primary dark:focus-visible:ring-dark-primary transition-all duration-state-change text-sm sm:text-base">
+          <span class="hidden sm:inline">Solicitar</span> Demo
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================== -->
+    <!-- HERO SECTION: IMPACTO VISUAL & PROPUESTA   -->
+    <!-- ========================================== -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden border-b border-light-outline-variant dark:border-dark-outline-variant">
+      <!-- Luces ambientales de fondo decorativas -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-light-primary/10 via-ai-accent/10 to-transparent dark:from-dark-primary/10 dark:via-ai-accent/15 blur-3xl pointer-events-none rounded-full -z-10 animate-ai-glow"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Textual Central del Hero -->
+        <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-light-primary-container/80 dark:bg-dark-primary-container/60 border border-light-primary/20 dark:border-dark-primary/30 text-light-on-primary-container dark:text-dark-on-primary-container mb-6 shadow-sm">
+            <span class="material-symbols-outlined text-[18px] text-ai-accent">smart_toy</span>
+            <span class="font-label text-label-sm font-semibold tracking-wide">Generación Automatizada de Horarios con IA</span>
+          </div>
+
+          <h1 class="font-display text-display-lg-mobile md:text-display-lg text-light-on-surface dark:text-dark-on-surface mb-6 tracking-tight">
+            Programa los horarios de tu centro de formación <span class="text-light-primary dark:text-dark-primary underline decoration-ai-accent/50 underline-offset-8">en segundos</span>, no en semanas.
+          </h1>
+
+          <p class="font-body text-body-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 text-pretty font-normal">
+            Cronos orquesta de forma autónoma fichas en <strong>etapa lectiva y productiva</strong>, sincronizando sedes, ambientes especializados, instructores y restricciones complejas mediante un agente inteligente de optimización.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#simulador" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl font-label text-label-lg font-bold bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary shadow-lg shadow-light-primary/25 dark:shadow-dark-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+              <span class="material-symbols-outlined text-[20px]">bolt</span>
+              Ver Generador de Horarios en Vivo
+            </a>
+            <a href="#como-funciona" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-label text-label-lg font-semibold bg-light-surface-container dark:bg-dark-surface-container text-light-on-surface dark:text-dark-on-surface border border-light-outline dark:border-dark-outline hover:border-light-primary dark:hover:border-dark-primary transition-all">
+              <span class="material-symbols-outlined text-[20px]">play_circle</span>
+              Conocer el Algoritmo
+            </a>
+          </div>
+
+          <!-- Métricas de confianza -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-12 mt-12 border-t border-light-outline-variant dark:border-dark-outline-variant text-left">
+            <div>
+              <div class="font-display text-headline-lg font-bold text-light-primary dark:text-dark-primary tabular-nums">100%</div>
+              <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Cero cruces de ambientes o instructores</p>
+            </div>
+            <div>
+              <div class="font-display text-headline-lg font-bold text-ai-accent tabular-nums">&lt; 30 seg</div>
+              <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Tiempo promedio de resolución por sede</p>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+              <div class="font-display text-headline-lg font-bold text-success tabular-nums">+40 hrs</div>
+              <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Ahorro mensual por coordinador académico</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showcase Visual Hero: Imagen de Alta Fidelidad + Interfaz Superpuesta -->
+        <div class="relative mx-auto rounded-2xl overflow-hidden border border-light-outline-variant dark:border-dark-outline-variant shadow-2xl bg-light-surface-container dark:bg-dark-surface-container">
+          <div class="p-3 sm:p-4 bg-light-surface-container-high dark:bg-dark-surface-container-high border-b border-light-outline-variant dark:border-dark-outline-variant flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+              <span class="ml-2 font-mono-code text-xs text-light-outline dark:text-dark-outline hidden sm:inline">cronos://centro-formacion/optimizador-horarios</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-success border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+                48 Fichas Asignadas sin Conflicto
+              </span>
+            </div>
+          </div>
+
+          <div class="relative">
+            <img src="https://lh3.googleusercontent.com/aida/ALJJyrBuqy46INkRbG5V-uKC8_rTOHbiUPnJLU2Fw9Zi0-QFcloZ1MJuzs9_5X0r-g9QoIJWe4ijqJwSVpLPNBiGHB14SXek2Zaqrx2wP87y0u_jMMhtkfWHS2E_YrW9bz3FxffwpzccSSepyaYwPAdIPxuICrCjAWBJPy9U4fhIlco90R7Z16kk9yy08bEfr7M44hXRBj8iSfiigqAB-pNTBuJ2reWD6LGWgYFIwPnimRHKmE57V6l03X1WeCeqBrwaRXrp2w" alt="Plataforma de generación automática de horarios Cronos en acción con agente inteligente" class="w-full h-auto max-h-[520px] object-cover">
+
+            <!-- Card flotante interactiva que muestra el agente en acción dentro del Hero -->
+            <div class="hidden lg:block absolute bottom-6 right-6 max-w-sm p-5 rounded-xl bg-light-surface/95 dark:bg-dark-surface/95 backdrop-blur-md border border-light-outline-variant dark:border-dark-outline-variant shadow-xl">
+              <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-8 h-8 rounded-lg bg-ai-accent/20 flex items-center justify-center text-ai-accent">
+                  <span class="material-symbols-outlined text-[18px]">psychology</span>
+                </div>
+                <div>
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Agente de Asignación</h4>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline text-xs">Evaluando 4,120 combinaciones</p>
+                </div>
+              </div>
+              <div class="space-y-2 text-xs font-mono-code bg-light-surface-container dark:bg-dark-surface-container p-3 rounded-lg border border-light-outline-variant dark:border-dark-outline-variant">
+                <div class="flex justify-between text-success">
+                  <span>✔ Sede Norte: 14 ambientes</span>
+                  <span>OK</span>
+                </div>
+                <div class="flex justify-between text-success">
+                  <span>✔ Instructores TI: 22/22</span>
+                  <span>Sin cruce</span>
+                </div>
+                <div class="flex justify-between text-ai-accent font-semibold">
+                  <span>⚡ Ficha 271891 (Productiva)</span>
+                  <span>Ajustado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PROPUESTA DE VALOR: RESOLVIENDO EL CAOS    -->
+    <!-- ========================================== -->
+    <section id="propuesta-valor" class="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-light-primary dark:text-dark-primary bg-light-primary-container/40 dark:bg-dark-primary-container/30 px-3 py-1 rounded-full border border-light-primary/20 dark:border-dark-primary/30">
+          La Realidad de los Centros de Formación
+        </span>
+        <h2 class="font-display text-display-md-mobile md:text-display-md text-light-on-surface dark:text-dark-on-surface mt-4 mb-4">
+          La programación manual de horarios es insostenible.
+        </h2>
+        <p class="font-body text-body-lg text-light-outline dark:text-dark-outline">
+          Fichas concurrentes, alternancia entre etapas lectivas y productivas, disponibilidad variable de instructores y ambientes saturados. Cronos convierte el caos en armonía matemática.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Tarjeta 1: Complejidad de Fichas -->
+        <div class="p-8 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant shadow-sm hover:border-light-primary dark:hover:border-dark-primary transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 dark:bg-blue-400/10 text-light-primary dark:text-dark-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">group_work</span>
+          </div>
+          <h3 class="font-title text-title-lg font-bold text-light-on-surface dark:text-dark-on-surface mb-3">
+            Fichas Lectivas &amp; Productivas
+          </h3>
+          <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+            Las fichas activas no son estáticas. Cronos distingue si el grupo requiere jornadas presenciales intensivas de teoría/taller o si está en seguimiento de etapa productiva en empresas, adaptando las horas docentes requeridas.
+          </p>
+        </div>
+
+        <!-- Tarjeta 2: Sedes y Ambientes Especiales -->
+        <div class="p-8 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant shadow-sm hover:border-light-primary dark:hover:border-dark-primary transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 dark:bg-cyan-400/10 text-ai-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">domain_verification</span>
+          </div>
+          <h3 class="font-title text-title-lg font-bold text-light-on-surface dark:text-dark-on-surface mb-3">
+            Multi-sede y Ambientes Críticos
+          </h3>
+          <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+            Laboratorios de química, talleres de maquinaria o salas de cómputo con software restringido. El sistema respeta capacidades de aforo y restricciones de traslado entre sedes para instructores y aprendices.
+          </p>
+        </div>
+
+        <!-- Tarjeta 3: Generación Automática como Diferencial -->
+        <div class="p-8 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-ai-accent/30 dark:border-ai-accent/40 shadow-sm relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-28 h-28 bg-ai-accent/10 rounded-bl-full pointer-events-none"></div>
+          <div class="w-12 h-12 rounded-xl bg-ai-accent/20 text-ai-accent flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">auto_mode</span>
+          </div>
+          <div class="inline-block px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-ai-accent text-white mb-2">Diferencial Clave</div>
+          <h3 class="font-title text-title-lg font-bold text-light-on-surface dark:text-dark-on-surface mb-3">
+            Generación 100% Automática
+          </h3>
+          <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+            No es un calendario digital manual donde arrastras bloques. Cronos es un <strong>motor de optimización</strong> que ingiere restricciones y propone la matriz óptima resuelta con un solo clic.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECCIÓN INTERACTIVA: EL AGENTE DE IA EN ACCIÓN -->
+    <!-- ========================================== -->
+    <section id="motor-ia" class="py-20 md:py-28 bg-light-surface-container-high/60 dark:bg-dark-surface-container/60 border-y border-light-outline-variant dark:border-dark-outline-variant relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Explicación Conceptual del Agente -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ai-accent/15 text-ai-accent border border-ai-accent/30 text-xs font-semibold">
+              <span class="material-symbols-outlined text-[16px]">memory</span>
+              Presencia Evidente de IA Integrada
+            </div>
+
+            <h2 class="font-display text-display-md-mobile md:text-display-md text-light-on-surface dark:text-dark-on-surface tracking-tight">
+              Un motor heurístico que razona sobre tus restricciones educativas.
+            </h2>
+
+            <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+              En lugar de prometer capacidades mágicas, el agente de IA de Cronos aplica <strong>programación por restricciones (CSP) y optimización heurística</strong> sobre cinco dimensiones fundamentales:
+            </p>
+
+            <ul class="space-y-3.5 font-body text-body-sm text-light-on-surface dark:text-dark-on-surface">
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-ai-accent text-[20px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Perfil de Fichas:</strong> Cruza las competencias curriculares faltantes con la etapa lectiva o productiva de cada cohorte.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-ai-accent text-[20px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Jornadas Docentes:</strong> Respeta contratos de 40h/semana, descansos pedagógicos y competencias técnicas autorizadas de cada instructor.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-ai-accent text-[20px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Espacios Físicos:</strong> Asigna ambientes de acuerdo al requerimiento técnico (laboratorios vs. aulas multipropósito) sin superposición.</span>
+              </li>
+            </ul>
+
+            <div class="pt-2">
+              <div class="p-4 rounded-xl bg-light-surface dark:bg-dark-surface border border-light-outline-variant dark:border-dark-outline-variant text-xs text-light-outline dark:text-dark-outline flex items-center gap-3">
+                <span class="material-symbols-outlined text-light-primary dark:text-dark-primary text-[24px]">verified_user</span>
+                <span>El coordinador mantiene siempre el control: aprueba, ajusta o congela bloques fijados según necesidades de última hora.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Módulo Interactivo: Simulación en Vivo del Agente de IA -->
+          <div class="lg:col-span-7">
+            <div id="simulador" class="rounded-2xl border border-light-outline-variant dark:border-dark-outline-variant bg-light-surface dark:bg-dark-surface shadow-2xl p-6 sm:p-8 relative overflow-hidden">
+              
+              <!-- Barra de control del simulador -->
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-light-outline-variant dark:border-dark-outline-variant">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-ai-accent animate-ping"></span>
+                    <h3 class="font-headline text-headline-md font-bold text-light-on-surface dark:text-dark-on-surface">Consola del Agente Cronos</h3>
+                  </div>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Simula la resolución algorítmica de un centro con 3 sedes</p>
+                </div>
+                
+                <button id="btn-run-simulation" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-ai-accent hover:bg-cyan-600 text-white font-label text-label-lg font-bold shadow-md shadow-ai-accent/20 transition-all active:scale-95">
+                  <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                  <span id="btn-sim-text">Ejecutar Optimización</span>
+                </button>
+              </div>
+
+              <!-- Terminal de análisis en vivo -->
+              <div class="bg-light-surface-container-high dark:bg-dark-surface-container rounded-xl p-4 font-mono-code text-xs mb-6 border border-light-outline-variant dark:border-dark-outline-variant max-h-48 overflow-y-auto space-y-2">
+                <div class="text-light-outline dark:text-dark-outline">
+                  <span class="text-light-primary dark:text-dark-primary font-bold">[CRONOS_AI]</span> Inicializando variables de entrada para Centro Regional...
+                </div>
+                <div id="log-step-1" class="text-light-on-surface dark:text-dark-on-surface flex items-center justify-between">
+                  <span>&gt; Analizando 24 fichas lectivas y 12 productivas...</span>
+                  <span class="text-success font-semibold">Listo (36/36)</span>
+                </div>
+                <div id="log-step-2" class="text-light-on-surface dark:text-dark-on-surface flex items-center justify-between">
+                  <span>&gt; Cotejando 42 ambientes en Sedes Central, Norte y Tecnológica...</span>
+                  <span class="text-success font-semibold">Validado</span>
+                </div>
+                <div id="log-step-3" class="text-ai-accent font-semibold flex items-center justify-between">
+                  <span id="sim-status-text">&gt; Estado: Esperando orden de generación de horarios...</span>
+                  <span id="sim-badge" class="px-2 py-0.5 rounded bg-ai-accent/20 text-ai-accent">EN ESPERA</span>
+                </div>
+              </div>
+
+              <!-- Rejilla de Horarios Visualmente Resuelta -->
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Matriz Propuesta para Ficha ADSO-2849 (Etapa Lectiva)</h4>
+                  <span class="text-xs font-semibold text-success flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">lock_reset</span>
+                    0 Conflictos
+                  </span>
+                </div>
+
+                <!-- Grid de horario semanal interactivo -->
+                <div class="grid grid-cols-5 gap-2 text-center text-xs">
+                  <!-- Lunes -->
+                  <div class="p-2.5 rounded-lg bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant">
+                    <div class="font-bold mb-1 text-light-outline dark:text-dark-outline">LUN</div>
+                    <div id="slot-1" class="p-2 rounded bg-light-primary-container/70 dark:bg-dark-primary-container/70 text-light-on-primary-container dark:text-dark-on-primary-container transition-all">
+                      <div class="font-bold">Desarrollo Web</div>
+                      <div class="text-[10px] opacity-80">Ambiente TI-3 • Carlos M.</div>
+                      <div class="mt-1 text-[9px] px-1 rounded bg-light-primary dark:bg-dark-primary text-white inline-block">07:00 - 13:00</div>
+                    </div>
+                  </div>
+
+                  <!-- Martes -->
+                  <div class="p-2.5 rounded-lg bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant">
+                    <div class="font-bold mb-1 text-light-outline dark:text-dark-outline">MAR</div>
+                    <div id="slot-2" class="p-2 rounded bg-light-primary-container/70 dark:bg-dark-primary-container/70 text-light-on-primary-container dark:text-dark-on-primary-container transition-all">
+                      <div class="font-bold">Bases de Datos</div>
+                      <div class="text-[10px] opacity-80">Lab Cómputo 1 • Elena R.</div>
+                      <div class="mt-1 text-[9px] px-1 rounded bg-light-primary dark:bg-dark-primary text-white inline-block">07:00 - 13:00</div>
+                    </div>
+                  </div>
+
+                  <!-- Miércoles -->
+                  <div class="p-2.5 rounded-lg bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant">
+                    <div class="font-bold mb-1 text-light-outline dark:text-dark-outline">MIÉ</div>
+                    <div id="slot-3" class="p-2 rounded bg-ai-accent/15 border border-ai-accent/30 text-ai-accent transition-all">
+                      <div class="font-bold">Inglés Técnico</div>
+                      <div class="text-[10px] opacity-80">Aula 104 • David S.</div>
+                      <div class="mt-1 text-[9px] px-1 rounded bg-ai-accent text-white inline-block">07:00 - 11:00</div>
+                    </div>
+                  </div>
+
+                  <!-- Jueves -->
+                  <div class="p-2.5 rounded-lg bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant">
+                    <div class="font-bold mb-1 text-light-outline dark:text-dark-outline">JUE</div>
+                    <div id="slot-4" class="p-2 rounded bg-light-primary-container/70 dark:bg-dark-primary-container/70 text-light-on-primary-container dark:text-dark-on-primary-container transition-all">
+                      <div class="font-bold">Arquitectura SW</div>
+                      <div class="text-[10px] opacity-80">Ambiente TI-3 • Carlos M.</div>
+                      <div class="mt-1 text-[9px] px-1 rounded bg-light-primary dark:bg-dark-primary text-white inline-block">07:00 - 13:00</div>
+                    </div>
+                  </div>
+
+                  <!-- Viernes -->
+                  <div class="p-2.5 rounded-lg bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant">
+                    <div class="font-bold mb-1 text-light-outline dark:text-dark-outline">VIE</div>
+                    <div id="slot-5" class="p-2 rounded bg-emerald-500/15 border border-emerald-500/30 text-success transition-all">
+                      <div class="font-bold">Seguimiento Proy.</div>
+                      <div class="text-[10px] opacity-80">Auditorio B • Mario V.</div>
+                      <div class="mt-1 text-[9px] px-1 rounded bg-success text-white inline-block">08:00 - 12:00</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CÓMO FUNCIONA: 4 PASOS TRANSPARENTES       -->
+    <!-- ========================================== -->
+    <section id="como-funciona" class="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-ai-accent bg-ai-accent/15 px-3 py-1 rounded-full border border-ai-accent/30">
+          Flujo de Trabajo Operativo
+        </span>
+        <h2 class="font-display text-display-md-mobile md:text-display-md text-light-on-surface dark:text-dark-on-surface mt-4 mb-4">
+          De la base de datos a los horarios en 4 pasos simples.
+        </h2>
+        <p class="font-body text-body-lg text-light-outline dark:text-dark-outline">
+          Diseñado para integrarse con los sistemas de gestión académica existentes sin cambiar la estructura curricular de tu centro.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Paso 1 -->
+        <div class="p-6 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant relative">
+          <div class="w-10 h-10 rounded-lg bg-light-primary-container dark:bg-dark-primary-container text-light-primary dark:text-dark-primary font-bold flex items-center justify-center mb-4">
+            01
+          </div>
+          <h3 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface mb-2">
+            Carga de Fichas &amp; Sedes
+          </h3>
+          <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">
+            Importa o sincroniza las fichas activas indicando su fase actual (lectiva o productiva), sedes y ambientes asignados.
+          </p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="p-6 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant relative">
+          <div class="w-10 h-10 rounded-lg bg-ai-accent/20 text-ai-accent font-bold flex items-center justify-center mb-4">
+            02
+          </div>
+          <h3 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface mb-2">
+            Definición de Restricciones
+          </h3>
+          <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">
+            Establece horarios de instructores, disponibilidades de laboratorio, franjas nocturnas o jornadas de fines de semana.
+          </p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="p-6 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-ai-accent/40 shadow-sm relative">
+          <div class="w-10 h-10 rounded-lg bg-ai-accent text-white font-bold flex items-center justify-center mb-4 shadow-md shadow-ai-accent/20">
+            03
+          </div>
+          <h3 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface mb-2">
+            Cálculo Automático por IA
+          </h3>
+          <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">
+            El motor de Cronos resuelve las combinaciones matemáticas, asigna franjas y erradica cruces en segundos.
+          </p>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="p-6 rounded-2xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant relative">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-success font-bold flex items-center justify-center mb-4">
+            04
+          </div>
+          <h3 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface mb-2">
+            Aprobación y Difusión
+          </h3>
+          <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">
+            El coordinador revisa la matriz global, ajusta excepciones si lo desea y publica los horarios a instructores y aprendices.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BENEFICIOS SEGMENTADOS: COORDINADOR E INSTRUCTOR -->
+    <!-- ========================================== -->
+    <section id="beneficios" class="py-20 md:py-28 bg-light-surface-container-high/40 dark:bg-dark-surface-container/40 border-t border-light-outline-variant dark:border-dark-outline-variant">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-light-primary dark:text-dark-primary bg-light-primary-container/40 dark:bg-dark-primary-container/30 px-3 py-1 rounded-full border border-light-primary/20 dark:border-dark-primary/30">
+            Diseñado para Quienes Viven la Formación
+          </span>
+          <h2 class="font-display text-display-md-mobile md:text-display-md text-light-on-surface dark:text-dark-on-surface mt-4 mb-4">
+            Impacto directo en coordinadores e instructores.
+          </h2>
+          <p class="font-body text-body-lg text-light-outline dark:text-dark-outline">
+            Solucionamos la carga operativa más desgastante del ciclo académico para ambos roles clave.
+          </p>
+        </div>
+
+        <!-- Tabs de Perfil -->
+        <div class="flex justify-center mb-12">
+          <div class="inline-flex p-1.5 rounded-xl bg-light-surface-container dark:bg-dark-surface-container border border-light-outline-variant dark:border-dark-outline-variant shadow-sm">
+            <button id="tab-btn-coordinador" type="button" class="px-6 py-2.5 rounded-lg font-label text-label-lg font-bold bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary shadow-sm transition-all">
+              Para Coordinadores Académicos
+            </button>
+            <button id="tab-btn-instructor" type="button" class="px-6 py-2.5 rounded-lg font-label text-label-lg font-semibold text-light-outline dark:text-dark-outline hover:text-light-on-surface dark:hover:text-dark-on-surface transition-all">
+              Para Instructores
+            </button>
+          </div>
+        </div>
+
+        <!-- Contenedor Coordinador -->
+        <div id="tab-content-coordinador" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-6 space-y-6">
+            <h3 class="font-display text-headline-lg font-bold text-light-on-surface dark:text-dark-on-surface">
+              Visibilidad total de sedes y control del aforo institucional.
+            </h3>
+            <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+              Como coordinador, tu tiempo debe enfocarse en la calidad formativa y pedagógica, no en resolver manualmente cientos de celdas cruzadas en hojas de cálculo frágiles.
+            </p>
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-light-surface dark:bg-dark-surface border border-light-outline-variant dark:border-dark-outline-variant flex items-start gap-4">
+                <span class="material-symbols-outlined text-light-primary dark:text-dark-primary text-[24px] mt-0.5">query_stats</span>
+                <div>
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Monitoreo de horas contratadas</h4>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Asegura que cada instructor complete su asignación semanal sin sobrecargas ni subutilización.</p>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-light-surface dark:bg-dark-surface border border-light-outline-variant dark:border-dark-outline-variant flex items-start gap-4">
+                <span class="material-symbols-outlined text-light-primary dark:text-dark-primary text-[24px] mt-0.5">change_circle</span>
+                <div>
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Respuesta inmediata a imprevistos</h4>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">¿Un ambiente entró en mantenimiento o un instructor tiene incapacidad? El agente reacomoda la franja en 1 clic.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-6">
+            <div class="rounded-2xl overflow-hidden border border-light-outline-variant dark:border-dark-outline-variant shadow-xl">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrBQZmLfpQax8aJO3-5FOXudUe2xfUFjPSKFxI1TRtxcpdOHpZweCNeKnDer-a5aR4wJ-kG_sWV9-MylJFg4CaMbM59NIMk9KWISb9kG8bATr87r6hT7tRm0rAv7DaYsU0atC8bLM-WPwCCrIcnVO47ROgl2703Yw3llQ-ZzW7Vnxpf3g_UE8NiAvTBijaO1cGPNknbggKC_9BSBza4G844K6jzSg-jRA3MW-Bp-jZRI4fqfBcQhUDUmy0BCqmZ5mVE8zIAiBvw2" alt="Coordinador de centro de formación supervisando horarios en Cronos" class="w-full h-80 lg:h-96 object-cover">
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenedor Instructor (Oculto por defecto, alternable) -->
+        <div id="tab-content-instructor" class="hidden grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-6 space-y-6">
+            <h3 class="font-display text-headline-lg font-bold text-light-on-surface dark:text-dark-on-surface">
+              Horarios claros, predecibles y respetuosos de tu jornada docente.
+            </h3>
+            <p class="font-body text-body-md text-light-outline dark:text-dark-outline leading-relaxed">
+              Cronos previene las jornadas fracturadas con &#34;horas muertas&#34; dispersas y elimina los traslados apresurados e imposibles entre sedes lejanas en un mismo día.
+            </p>
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl bg-light-surface dark:bg-dark-surface border border-light-outline-variant dark:border-dark-outline-variant flex items-start gap-4">
+                <span class="material-symbols-outlined text-ai-accent text-[24px] mt-0.5">commute</span>
+                <div>
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Tiempos de traslado garantizados</h4>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">El algoritmo incluye franjas de desplazamiento cuando la misma ficha o docente cambia de sede física.</p>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl bg-light-surface dark:bg-dark-surface border border-light-outline-variant dark:border-dark-outline-variant flex items-start gap-4">
+                <span class="material-symbols-outlined text-ai-accent text-[24px] mt-0.5">calendar_month</span>
+                <div>
+                  <h4 class="font-title text-title-md font-bold text-light-on-surface dark:text-dark-on-surface">Sincronización en dispositivos móviles</h4>
+                  <p class="font-body text-body-sm text-light-outline dark:text-dark-outline">Acceso inmediato a tu programación actualizada, ambientes asignados y listados de ficha desde tu teléfono.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-6">
+            <div class="rounded-2xl overflow-hidden border border-light-outline-variant dark:border-dark-outline-variant shadow-xl">
+              <img src="https://lh3.googleusercontent.com/aida/ALJJyrAhlVvUGxswFhDr-vWTD9dhX-A8vUscsxGgVyxOeXN4lgIGdayYqaWzcu9HmIogKKY2WOeKz8hYbfo0HL2n4bL1bvDSIq6K7S0ZWe1L8Un_kC2mKJTXEsd52mY_5hEXpz9aV5RBsJg0thWP7pMxM4_CLiQTmmpYbhNGaaYviuzRhNQ6EhQEw8jQbTNuV_gFZ_Ex-QixLdDdIZl2W91NOoHKu6b4hPevGxPMJKBGQIdE_TtitExnHttpmWxI-rrKZQ3qY1Kcbg" alt="Instructor en taller de formación con alumnos" class="w-full h-80 lg:h-96 object-cover">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- LLAMADA A LA ACCIÓN (CTA FINAL)            -->
+    <!-- ========================================== -->
+    <section id="contacto-demo" class="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative rounded-3xl bg-gradient-to-br from-light-primary via-blue-700 to-indigo-900 dark:from-dark-surface-container dark:via-dark-surface dark:to-dark-primary-container p-8 sm:p-14 text-white overflow-hidden shadow-2xl border border-light-outline/20 dark:border-dark-outline">
+        
+        <!-- Elemento de fondo -->
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-ai-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-2xl relative z-10">
+          <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 text-white mb-4 inline-block backdrop-blur-sm">
+            Piloto para Centros de Formación
+          </span>
+          <h2 class="font-display text-display-md-mobile md:text-display-md font-extrabold tracking-tight mb-4">
+            Lleva la generación inteligente de horarios a tu centro.
+          </h2>
+          <p class="font-body text-body-lg text-blue-100 dark:text-slate-300 mb-8">
+            Comprueba en una sesión de 20 minutos cómo Cronos procesa las fichas de tu sede y genera una programación completa sin cruces.
+          </p>
+
+          <form id="demo-form" class="space-y-4 max-w-lg" onsubmit="event.preventDefault(); alert(&#39;¡Gracias! Un especialista de Cronos se comunicará con tu centro de formación para coordinar la demo interactiva.&#39;);">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="email" required placeholder="coordinador@centro.edu" class="flex-1 px-4 py-3.5 rounded-xl bg-white dark:bg-dark-surface text-light-on-surface dark:text-dark-on-surface placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-ai-accent border-0 text-sm font-body shadow-sm">
+              <button type="submit" class="px-6 py-3.5 rounded-xl font-label text-label-lg font-bold bg-ai-accent hover:bg-cyan-400 text-white shadow-lg shadow-ai-accent/30 transition-transform active:scale-95 whitespace-nowrap">
+                Solicitar Demostración
+              </button>
+            </div>
+            <p class="text-xs text-blue-200 dark:text-slate-400">
+              * Sin compromisos. Soporte para sedes múltiples y esquemas lectivos/productivos.
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- PIE DE PÁGINA (FOOTER)                     -->
+  <!-- ========================================== -->
+  <footer class="border-t border-light-outline-variant dark:border-dark-outline-variant bg-light-surface-container dark:bg-dark-surface py-12 transition-colors duration-theme-toggle">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-light-primary dark:bg-dark-primary flex items-center justify-center text-white">
+          <span class="material-symbols-outlined text-[18px]">calendar_clock</span>
+        </div>
+        <span class="font-headline text-headline-md font-bold text-light-on-surface dark:text-dark-on-surface">Cronos</span>
+        <span class="text-xs text-light-outline dark:text-dark-outline border-l border-light-outline-variant dark:border-dark-outline-variant pl-3 ml-2">
+          Gestión Algorítmica de Horarios para Formación Profesional
+        </span>
+      </div>
+
+      <div class="flex items-center gap-6 text-sm font-label text-light-outline dark:text-dark-outline">
+        <a href="#propuesta-valor" class="hover:text-light-primary dark:hover:text-dark-primary">Propuesta</a>
+        <a href="#motor-ia" class="hover:text-ai-accent">Motor IA</a>
+        <a href="#beneficios" class="hover:text-light-primary dark:hover:text-dark-primary">Coordinadores &amp; Instructores</a>
+        <a href="#contacto-demo" class="hover:text-light-primary dark:hover:text-dark-primary">Contacto</a>
+      </div>
+
+      <div class="text-xs text-light-outline dark:text-dark-outline">
+        © 2026 Cronos Platform. Todos los derechos reservados.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- SCRIPTS INTERACTIVOS (TEMA Y SIMULADOR)    -->
+  <!-- ========================================== -->
+  <script>
+    // ----------------------------------------------------
+    // 1. GESTIÓN DEL CAMBIO DE TEMA (CLARO / OSCURO)
+    // ----------------------------------------------------
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeIconLight = document.getElementById('theme-icon-light');
+    const themeIconDark = document.getElementById('theme-icon-dark');
+    const htmlElement = document.documentElement;
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlElement.classList.add('dark');
+        themeIconLight.classList.remove('hidden');
+        themeIconDark.classList.add('hidden');
+      } else {
+        htmlElement.classList.remove('dark');
+        themeIconLight.classList.add('hidden');
+        themeIconDark.classList.remove('hidden');
+      }
+    }
+
+    // Inicialización de preferencia (con try-catch por el sandbox iframe)
+    let isDarkMode = false;
+    try {
+      const storedTheme = localStorage.getItem('cronos-theme');
+      if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        isDarkMode = true;
+      }
+    } catch (e) {
+      isDarkMode = false;
+    }
+    applyTheme(isDarkMode);
+
+    themeToggleBtn.addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      applyTheme(isDarkMode);
+      try {
+        localStorage.setItem('cronos-theme', isDarkMode ? 'dark' : 'light');
+      } catch (e) {}
+    });
+
+    // ----------------------------------------------------
+    // 2. TABS INTERACTIVAS (COORDINADOR vs INSTRUCTOR)
+    // ----------------------------------------------------
+    const tabBtnCoord = document.getElementById('tab-btn-coordinador');
+    const tabBtnInst = document.getElementById('tab-btn-instructor');
+    const tabContentCoord = document.getElementById('tab-content-coordinador');
+    const tabContentInst = document.getElementById('tab-content-instructor');
+
+    tabBtnCoord.addEventListener('click', () => {
+      tabBtnCoord.className = "px-6 py-2.5 rounded-lg font-label text-label-lg font-bold bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary shadow-sm transition-all";
+      tabBtnInst.className = "px-6 py-2.5 rounded-lg font-label text-label-lg font-semibold text-light-outline dark:text-dark-outline hover:text-light-on-surface dark:hover:text-dark-on-surface transition-all";
+      tabContentCoord.classList.remove('hidden');
+      tabContentCoord.classList.add('grid');
+      tabContentInst.classList.add('hidden');
+      tabContentInst.classList.remove('grid');
+    });
+
+    tabBtnInst.addEventListener('click', () => {
+      tabBtnInst.className = "px-6 py-2.5 rounded-lg font-label text-label-lg font-bold bg-light-primary dark:bg-dark-primary text-light-on-primary dark:text-dark-on-primary shadow-sm transition-all";
+      tabBtnCoord.className = "px-6 py-2.5 rounded-lg font-label text-label-lg font-semibold text-light-outline dark:text-dark-outline hover:text-light-on-surface dark:hover:text-dark-on-surface transition-all";
+      tabContentInst.classList.remove('hidden');
+      tabContentInst.classList.add('grid');
+      tabContentCoord.classList.add('hidden');
+      tabContentCoord.classList.remove('grid');
+    });
+
+    // ----------------------------------------------------
+    // 3. SIMULADOR DEL AGENTE DE IA EN TIEMPO REAL
+    // ----------------------------------------------------
+    const btnSim = document.getElementById('btn-run-simulation');
+    const btnSimText = document.getElementById('btn-sim-text');
+    const simStatusText = document.getElementById('sim-status-text');
+    const simBadge = document.getElementById('sim-badge');
+    const slotElements = [
+      document.getElementById('slot-1'),
+      document.getElementById('slot-2'),
+      document.getElementById('slot-3'),
+      document.getElementById('slot-4'),
+      document.getElementById('slot-5'),
+    ];
+
+    let isRunning = false;
+    btnSim.addEventListener('click', () => {
+      if (isRunning) return;
+      isRunning = true;
+      btnSim.disabled = true;
+      btnSim.classList.add('opacity-70');
+      btnSimText.textContent = "Resolviendo Restricciones...";
+      simStatusText.textContent = "> IA ejecutando poda de ramas y árbol de búsqueda...";
+      simBadge.textContent = "PROCESANDO";
+      simBadge.className = "px-2 py-0.5 rounded bg-amber-500/20 text-warning animate-pulse";
+
+      // Microinteracción visual en los bloques de horario
+      slotElements.forEach((el, index) => {
+        el.style.opacity = '0.3';
+        el.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'scale(1)';
+        }, 300 * (index + 1));
+      });
+
+      setTimeout(() => {
+        simStatusText.textContent = "> ¡Optimización completada! 0 cruces en 3 sedes y 48 fichas.";
+        simBadge.textContent = "RESUELTO 100%";
+        simBadge.className = "px-2 py-0.5 rounded bg-emerald-500/20 text-success font-bold";
+        btnSimText.textContent = "Re-ejecutar Algoritmo";
+        btnSim.disabled = false;
+        btnSim.classList.remove('opacity-70');
+        isRunning = false;
+      }, 1800);
+    });
+  </script>
+
+
+
+</body></html>
